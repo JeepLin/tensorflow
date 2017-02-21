@@ -31,38 +31,53 @@
    (tensorflow) sh-3.2# 
 
 #在 virtualenv 内, 安装 TensorFlow:
-#cmd：pip install --upgrade <$url_to_binary.whl>
-#url_to_binary.whl具体地址需要根据当前系统，python版本，再到tensorflow的github(https://github.com/tensorflow/tensorflow)
-#中的TF_BINARY_URL环境变量去寻找，readme中有详细说明。
-# eg(Mac OS X, CPU only, Python 2.7:
-#(tensorflow)$ export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.0.0-py2-none-any.whl)
-
-#由于pip直接通过google的url安装速度太慢，中间不断又会出现io timeout的情况(GGW牛逼啊)，所以我先手动下载whl文件，再到本地安装
-
-6、(tensorflow) sh-3.2# pip install tensorflow-1.0.0-py2-none-any.whl 
-
-Processing ./tensorflow-1.0.0-py2-none-any.whl
-Collecting mock>=2.0.0 (from tensorflow==1.0.0)
-  Downloading mock-2.0.0-py2.py3-none-any.whl (56kB)
-    100% |████████████████████████████████| 61kB 54kB/s 
-Collecting numpy>=1.11.0 (from tensorflow==1.0.0)
-  Downloading numpy-1.12.0-cp27-cp27m-macosx_10_6_intel.macosx_10_9_intel.macosx_10_9_x86_64.macosx_10_10_intel.macosx_10_10_x86_64.whl (4.4MB)
-    100% |████████████████████████████████| 4.4MB 57kB/s 
-Collecting protobuf>=3.1.0 (from tensorflow==1.0.0)
-  Downloading protobuf-3.2.0-py2.py3-none-any.whl (360kB)
-    100% |████████████████████████████████| 368kB 65kB/s 
-Requirement already satisfied: wheel in /private/var/root/tensorflow/lib/python2.7/site-packages (from tensorflow==1.0.0)
-Requirement already satisfied: six>=1.10.0 in /private/var/root/tensorflow/lib/python2.7/site-packages (from tensorflow==1.0.0)
-Collecting funcsigs>=1; python_version < "3.3" (from mock>=2.0.0->tensorflow==1.0.0)
-  Downloading funcsigs-1.0.2-py2.py3-none-any.whl
-Collecting pbr>=0.11 (from mock>=2.0.0->tensorflow==1.0.0)
-  Downloading pbr-1.10.0-py2.py3-none-any.whl (96kB)
-    100% |████████████████████████████████| 102kB 60kB/s 
-Requirement already satisfied: setuptools in /private/var/root/tensorflow/lib/python2.7/site-packages (from protobuf>=3.1.0->tensorflow==1.0.0)
-Requirement already satisfied: appdirs>=1.4.0 in /private/var/root/tensorflow/lib/python2.7/site-packages (from setuptools->protobuf>=3.1.0->tensorflow==1.0.0)
-Requirement already satisfied: packaging>=16.8 in /private/var/root/tensorflow/lib/python2.7/site-packages (from setuptools->protobuf>=3.1.0->tensorflow==1.0.0)
-Requirement already satisfied: pyparsing in /private/var/root/tensorflow/lib/python2.7/site-packages (from packaging>=16.8->setuptools->protobuf>=3.1.0->tensorflow==1.0.0)
+6、(tensorflow) sh-3.2# pip install --upgrade tensorflow
+Collecting tensorflow
+  Downloading tensorflow-1.0.0-cp27-cp27m-macosx_10_11_x86_64.whl (39.3MB)
+    100% |████████████████████████████████| 39.4MB 24kB/s 
+Collecting mock>=2.0.0 (from tensorflow)
+  Using cached mock-2.0.0-py2.py3-none-any.whl
+Collecting numpy>=1.11.0 (from tensorflow)
+  Using cached numpy-1.12.0-cp27-cp27m-macosx_10_6_intel.macosx_10_9_intel.macosx_10_9_x86_64.macosx_10_10_intel.macosx_10_10_x86_64.whl
+Collecting protobuf>=3.1.0 (from tensorflow)
+  Using cached protobuf-3.2.0-py2.py3-none-any.whl
+Requirement already up-to-date: wheel in /private/var/root/tensorflow/lib/python2.7/site-packages (from tensorflow)
+Requirement already up-to-date: six>=1.10.0 in /private/var/root/tensorflow/lib/python2.7/site-packages (from tensorflow)
+Collecting funcsigs>=1; python_version < "3.3" (from mock>=2.0.0->tensorflow)
+  Using cached funcsigs-1.0.2-py2.py3-none-any.whl
+Collecting pbr>=0.11 (from mock>=2.0.0->tensorflow)
+  Using cached pbr-1.10.0-py2.py3-none-any.whl
+Requirement already up-to-date: setuptools in /private/var/root/tensorflow/lib/python2.7/site-packages (from protobuf>=3.1.0->tensorflow)
+Requirement already up-to-date: appdirs>=1.4.0 in /private/var/root/tensorflow/lib/python2.7/site-packages (from setuptools->protobuf>=3.1.0->tensorflow)
+Requirement already up-to-date: packaging>=16.8 in /private/var/root/tensorflow/lib/python2.7/site-packages (from setuptools->protobuf>=3.1.0->tensorflow)
+Requirement already up-to-date: pyparsing in /private/var/root/tensorflow/lib/python2.7/site-packages (from packaging>=16.8->setuptools->protobuf>=3.1.0->tensorflow)
 Installing collected packages: funcsigs, pbr, mock, numpy, protobuf, tensorflow
   Found existing installation: numpy 1.8.0rc1
     Not uninstalling numpy at /System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python, outside environment /var/root/tensorflow
 Successfully installed funcsigs-1.0.2 mock-2.0.0 numpy-1.12.0 pbr-1.10.0 protobuf-3.2.0 tensorflow-1.0.0
+
+#运行tensorflow
+7、(tensorflow) sh-3.2# python
+Python 2.7.10 (default, Oct 23 2015, 18:05:06) 
+[GCC 4.2.1 Compatible Apple LLVM 7.0.0 (clang-700.0.59.5)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import tensorflow as tf
+>>> hello = tf.constant('Hello, TensorFlow!')
+>>> sess = tf.Session()
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.1 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use SSE4.2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use AVX2 instructions, but these are available on your machine and could speed up CPU computations.
+W tensorflow/core/platform/cpu_feature_guard.cc:45] The TensorFlow library wasn't compiled to use FMA instructions, but these are available on your machine and could speed up CPU computations.
+>>> sess.run(hello)
+'Hello, TensorFlow!'
+>>> a = tf.constant(10)
+>>> b = tf.constant(32)
+>>> sess.run(a+b)
+42
+>>> exit()
+
+#关闭tensorflow
+8、(tensorflow) sh-3.2# deactivate
+
+以上  2017/02/21  tensorflow1.0.0发布
