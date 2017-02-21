@@ -1,0 +1,68 @@
+安装必备工具
+
+1、sh-3.2# brew install python
+
+# 如果还没有安装 pip
+2、sh-3.2# sudo easy_install pip  
+
+#此处一定要注意
+#tf中文社区 http://www.tensorfly.cn/tfdoc/get_started/os_setup.html#virtualenv_install 
+#安装文档中写的命令行是：sudo pip install --upgrade virtualenv，升级virtualenv，但如果没有安装
+#过virtualenv的话执行这个命令会很慢而且到最后一直报错：eg(raise ReadTimeoutError(self._pool, None, 'Read timed out.')
+# ReadTimeoutError: HTTPSConnectionPool(host='pypi.python.org', port=443): Read timed out.)
+# 这时就需要一点terminal命令行的基本知识，把中间的upgrade去掉就可以飞快安装成功啦
+3、sh-3.2# sudo pip install virtualenv
+
+#Collecting virtualenv
+#  Downloading virtualenv-15.1.0-py2.py3-none-any.whl (1.8MB)
+#    100% |████████████████████████████████| 1.8MB 464kB/s 
+#Installing collected packages: virtualenv
+#Successfully installed virtualenv-15.1.0
+
+#建立一个全新的 virtualenv 环境. 将环境建在 ~/tensorflow 目录下
+4、sh-3.2# virtualenv --system-site-packages ~/tensorflow
+
+#New python executable in /var/root/tensorflow/bin/python
+#Installing setuptools, pip, wheel...done.
+
+#激活 virtualenv, 激活成功后当前显示的用户会变成tensorflow
+5、sh-3.2# cd ~/tensorflow/
+   sh-3.2# source bin/activate
+   (tensorflow) sh-3.2# 
+
+#在 virtualenv 内, 安装 TensorFlow:
+#cmd：pip install --upgrade <$url_to_binary.whl>
+#url_to_binary.whl具体地址需要根据当前系统，python版本，再到tensorflow的github(https://github.com/tensorflow/tensorflow)
+#中的TF_BINARY_URL环境变量去寻找，readme中有详细说明。
+# eg(Mac OS X, CPU only, Python 2.7:
+#(tensorflow)$ export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.0.0-py2-none-any.whl)
+
+#由于pip直接通过google的url安装速度太慢，中间不断又会出现io timeout的情况(GGW牛逼啊)，所以我先手动下载whl文件，再到本地安装
+
+6、(tensorflow) sh-3.2# pip install tensorflow-1.0.0-py2-none-any.whl 
+
+Processing ./tensorflow-1.0.0-py2-none-any.whl
+Collecting mock>=2.0.0 (from tensorflow==1.0.0)
+  Downloading mock-2.0.0-py2.py3-none-any.whl (56kB)
+    100% |████████████████████████████████| 61kB 54kB/s 
+Collecting numpy>=1.11.0 (from tensorflow==1.0.0)
+  Downloading numpy-1.12.0-cp27-cp27m-macosx_10_6_intel.macosx_10_9_intel.macosx_10_9_x86_64.macosx_10_10_intel.macosx_10_10_x86_64.whl (4.4MB)
+    100% |████████████████████████████████| 4.4MB 57kB/s 
+Collecting protobuf>=3.1.0 (from tensorflow==1.0.0)
+  Downloading protobuf-3.2.0-py2.py3-none-any.whl (360kB)
+    100% |████████████████████████████████| 368kB 65kB/s 
+Requirement already satisfied: wheel in /private/var/root/tensorflow/lib/python2.7/site-packages (from tensorflow==1.0.0)
+Requirement already satisfied: six>=1.10.0 in /private/var/root/tensorflow/lib/python2.7/site-packages (from tensorflow==1.0.0)
+Collecting funcsigs>=1; python_version < "3.3" (from mock>=2.0.0->tensorflow==1.0.0)
+  Downloading funcsigs-1.0.2-py2.py3-none-any.whl
+Collecting pbr>=0.11 (from mock>=2.0.0->tensorflow==1.0.0)
+  Downloading pbr-1.10.0-py2.py3-none-any.whl (96kB)
+    100% |████████████████████████████████| 102kB 60kB/s 
+Requirement already satisfied: setuptools in /private/var/root/tensorflow/lib/python2.7/site-packages (from protobuf>=3.1.0->tensorflow==1.0.0)
+Requirement already satisfied: appdirs>=1.4.0 in /private/var/root/tensorflow/lib/python2.7/site-packages (from setuptools->protobuf>=3.1.0->tensorflow==1.0.0)
+Requirement already satisfied: packaging>=16.8 in /private/var/root/tensorflow/lib/python2.7/site-packages (from setuptools->protobuf>=3.1.0->tensorflow==1.0.0)
+Requirement already satisfied: pyparsing in /private/var/root/tensorflow/lib/python2.7/site-packages (from packaging>=16.8->setuptools->protobuf>=3.1.0->tensorflow==1.0.0)
+Installing collected packages: funcsigs, pbr, mock, numpy, protobuf, tensorflow
+  Found existing installation: numpy 1.8.0rc1
+    Not uninstalling numpy at /System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python, outside environment /var/root/tensorflow
+Successfully installed funcsigs-1.0.2 mock-2.0.0 numpy-1.12.0 pbr-1.10.0 protobuf-3.2.0 tensorflow-1.0.0
